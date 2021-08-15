@@ -1,0 +1,13 @@
+.rightpanel{
+  display: flex;
+  background-color: rgb(247, 247, 247);
+  width: 300px;
+  border-left: 1px rgb(216, 187, 187) solid; 
+  color: cadetblue; 
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.rightpanel li {
+  color: black;
+}

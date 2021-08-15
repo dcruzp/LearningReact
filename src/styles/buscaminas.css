@@ -1,38 +1,30 @@
-/* body{
-  font: 14px "Century Gothic" , Futura, sans-serif; 
-} */
-
-ol, ul{
-  padding-left: 30px; 
-}
-
-
 .board-row::after{
   clear: both;
   content: " ";
   display: table;
 }
 
-.status{
-  margin-bottom: 10px;
+ol, ul{
+  padding-left: 30px; 
 }
 
-.square {
+
+.cell {
   background: rgb(179, 156, 156);
   border: 1px solid rgb(0, 0, 0);
   float: left;
   font-size: 32px;
   font-weight: bold;
-  line-height: 30px;
-  height: 30px;
+  line-height: 54px;
+  height: 54px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 30px;
+  width: 54px;
 }
 
-.square:focus{
+.cell:focus{
   outline: none;
 }
 
@@ -51,9 +43,4 @@ ol, ul{
 .game-board{
   display: flex;
   justify-content: center;
-
-}
-
-.game-info{
-  margin-left: 20 px;
 }

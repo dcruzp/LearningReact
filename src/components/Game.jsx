@@ -1,5 +1,5 @@
 import React from 'react' ; 
-import '../styles/Game.css' ; 
+import '../styles/game.css'; 
 
 function Square(props) {
   return (
@@ -106,7 +106,7 @@ class Game extends React.Component{
     }
 
     return (
-      <div>
+      <div className="game">
         <div className="game-board">
           <Board
             squares={current.squares}
