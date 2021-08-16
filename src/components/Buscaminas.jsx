@@ -1,11 +1,26 @@
 import React from 'react'; 
 import '../styles/buscaminas.css';
 
+
+// function CreateMines(squares){
+//   var total = 10; 
+//   var i = 0; 
+//   while(i < total)
+//   {
+//     var index = Math.floor(Math.random() * 81)
+//     if (squares[index].Mine)continue; 
+//     squares[index].Mine = true; 
+//     i++; 
+//   }
+// }
+
+
+
 function Cell (props)
 {
   return (
     <button className="cell" onClick = {props.onClick}>
-      {props.value}
+      {props.value.mine === true ? 'X' : 'O'}
     </button>
   );
 }
@@ -127,16 +142,50 @@ class Board extends React.Component{
   }
 }
 
+class Casilla{
+  mine; 
+  constructor(mine){
+    this.mine = mine;
+  }
+}
+
+function CreateMines (){
+  var squares = new Array(81).fill(null).map(() => new Casilla(false));
+
+  var total = 30; 
+  var i =0 ; 
+  while(i < total){
+    var index = Math.floor(Math.random() *81); 
+    console.log(index); 
+    if (squares[index].mine === true) continue; 
+    squares[index].mine = true; 
+    i++; 
+  }
+  return (squares); 
+}
+
 class Buscaminas extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-        squares: Array(54).fill(null),
+      // squares: Array(81).fill(new Casilla(false),0,81),
+      // squares : new Array(81).fill(null).map(()=>(new Casilla(false)))
+
+      squares : CreateMines()
     }
+    // CreateMines(this.state.squares);
+    // console.log(this.state.squares); 
   }
 
   handleClick (i){
     console.log(i); 
+    
+    const squares = this.state.squares.slice();
+    squares[i].mine = true;
+    this.setState({
+      squares: squares,
+    })
+
   }
 
   render (){

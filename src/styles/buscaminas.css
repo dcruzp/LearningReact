@@ -10,22 +10,29 @@ ol, ul{
 
 
 .cell {
-  background: rgb(179, 156, 156);
-  border: 1px solid rgb(0, 0, 0);
   float: left;
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 54px;
-  height: 54px;
-  margin-right: -1px;
-  margin-top: -1px;
   padding: 0;
+  font-size: 32px;
+  cursor: pointer;
   text-align: center;
-  width: 54px;
+  background: rgb(155, 136, 101);
+  border: 2px solid rgb(0, 0, 0);  
+  font-weight: bold;
+  line-height: 32px;
+  height: 54px;
+  margin-right: 0px;
+  margin-top: 0px;
+  width: 54px;  
+  outline: none;
+  border-radius: 4px;
 }
 
-.cell:focus{
-  outline: none;
+.cell:hover{background-color: #556a56;}
+
+.cell:active{
+  background-color: #293e20;
+  box-shadow: 0 1px #666;
+  /* transform: translateY(1px); */
 }
 
 .kbd-navigation .square:focus {
