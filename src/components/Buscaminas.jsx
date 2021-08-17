@@ -2,25 +2,21 @@ import React from 'react';
 import '../styles/buscaminas.css';
 
 
-// function CreateMines(squares){
-//   var total = 10; 
-//   var i = 0; 
-//   while(i < total)
-//   {
-//     var index = Math.floor(Math.random() * 81)
-//     if (squares[index].Mine)continue; 
-//     squares[index].Mine = true; 
-//     i++; 
-//   }
-// }
+//enviroment global 
+var rows = 9 ; 
+var columns = 9 ; 
 
-
+let dirrow = [-1,-1,-1,0,1,1,1,0]; 
+let dircol = [-1,0,1,1,1,0,-1,-1];
+let gameover = false ; 
 
 function Cell (props)
 {
   return (
     <button className="cell" onClick = {props.onClick}>
-      {props.value.mine === true ? 'X' : 'O'}
+      {
+        props.value.print()
+      }
     </button>
   );
 }
@@ -143,24 +139,60 @@ class Board extends React.Component{
 }
 
 class Casilla{
-  mine; 
+  mine = false; 
+  minesAround = 0;
+  isbloked = true; 
   constructor(mine){
     this.mine = mine;
   }
+
+  print = function()  {
+    if (this.isbloked === true ) return ' '; 
+    else if (this.mine === true ) return 'X';
+    else return this.minesAround; 
+  }
+}
+
+
+
+function checkIsInRangePosition (newdirrow , newdircol , rows , columns){
+  return newdirrow >= 0 && newdirrow <  rows && newdircol >= 0 && newdircol < columns; 
 }
 
 function CreateMines (){
-  var squares = new Array(81).fill(null).map(() => new Casilla(false));
 
-  var total = 30; 
+  var squares = new Array(rows * columns).fill(null).map(() => new Casilla(false));
+
+  var total = 40; 
   var i =0 ; 
   while(i < total){
     var index = Math.floor(Math.random() *81); 
-    console.log(index); 
     if (squares[index].mine === true) continue; 
     squares[index].mine = true; 
+    squares[index].isbloked = false ; 
     i++; 
   }
+
+  for(let i =0 ; i < rows ; i ++ ){
+    for(let j =0 ; j < columns; j++){
+      let position = i * columns + j ; 
+      let amountminesaround = 0 ; 
+      for(let r = 0 ; r < dirrow.length; r ++){
+        let newdirrow = i + dirrow[r]; 
+        let newdircol = j + dircol[r]; 
+
+        if (checkIsInRangePosition(newdirrow , newdircol , rows , columns))
+        {
+          let newposition = newdirrow * columns + newdircol;
+          if (squares[newposition].mine === true ){
+            amountminesaround += 1 ;
+          }
+        }
+      }
+      squares[position].minesAround = amountminesaround;
+    }
+  }
+  
   return (squares); 
 }
 
@@ -168,24 +200,48 @@ class Buscaminas extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      // squares: Array(81).fill(new Casilla(false),0,81),
-      // squares : new Array(81).fill(null).map(()=>(new Casilla(false)))
-
       squares : CreateMines()
     }
-    // CreateMines(this.state.squares);
-    // console.log(this.state.squares); 
   }
 
   handleClick (i){
-    console.log(i); 
-    
+
+    if (gameover === true ) return; 
+
     const squares = this.state.squares.slice();
-    squares[i].mine = true;
+    if (squares[i].mine ===true ){
+      gameover = true; 
+      alert("has pisado una mina");
+      for(let i =0 ; i < rows ; i ++){
+        for(let j=0 ; j< columns ; j++){
+          squares[i* columns + j ].isbloked = false;
+        }
+      } 
+      return; 
+    } 
+    // squares[i].isbloked = false;
+
+    var queue = [{row: Math.floor(i/rows) , col: i % columns}];
+    var mask = [i]; 
+    squares[i].isbloked = false; 
+    while(queue.length !== 0){
+      var current = queue.shift(); 
+      for(let i=1 ; i<dirrow.length; i+=2){
+        let newdirrow = dirrow[i] + current.row; 
+        let newdircol = dircol[i] + current.col;
+        let newposition = newdirrow * columns + newdircol;
+        //let isok =  checkIsInRangePosition(newdirrow , newdircol , rows , columns);
+        if (checkIsInRangePosition(newdirrow , newdircol , rows , columns)){
+          if (squares[newposition].mine === true || mask.indexOf(newposition) !== -1) continue; 
+          squares[newposition].isbloked = false; 
+          queue.push({row:newdirrow , col:newdircol}); 
+          mask.push(newposition); 
+        }
+      }
+    }
     this.setState({
       squares: squares,
     })
-
   }
 
   render (){
