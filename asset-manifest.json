@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/LearningReact/static/css/main.74e57e92.chunk.css",
+    "main.js": "/LearningReact/static/js/main.530fa085.chunk.js",
+    "main.js.map": "/LearningReact/static/js/main.530fa085.chunk.js.map",
+    "runtime-main.js": "/LearningReact/static/js/runtime-main.32bc2241.js",
+    "runtime-main.js.map": "/LearningReact/static/js/runtime-main.32bc2241.js.map",
+    "static/js/2.cf96ef06.chunk.js": "/LearningReact/static/js/2.cf96ef06.chunk.js",
+    "static/js/2.cf96ef06.chunk.js.map": "/LearningReact/static/js/2.cf96ef06.chunk.js.map",
+    "static/js/3.a79359fc.chunk.js": "/LearningReact/static/js/3.a79359fc.chunk.js",
+    "static/js/3.a79359fc.chunk.js.map": "/LearningReact/static/js/3.a79359fc.chunk.js.map",
+    "index.html": "/LearningReact/index.html",
+    "static/css/main.74e57e92.chunk.css.map": "/LearningReact/static/css/main.74e57e92.chunk.css.map",
+    "static/js/2.cf96ef06.chunk.js.LICENSE.txt": "/LearningReact/static/js/2.cf96ef06.chunk.js.LICENSE.txt",
+    "static/media/daniel-logo.4e806762.png": "/LearningReact/static/media/daniel-logo.4e806762.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.32bc2241.js",
+    "static/js/2.cf96ef06.chunk.js",
+    "static/css/main.74e57e92.chunk.css",
+    "static/js/main.530fa085.chunk.js"
+  ]
+}
