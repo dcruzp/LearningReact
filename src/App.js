@@ -5,6 +5,7 @@ import Header  from './components/Header';
 // import RightPanel from './components/RightPanel'
 // import Game from './components/Game'; 
 import Buscaminas from './components/Buscaminas'
+import Grafico from './components/Graficos'
 
 function App() {
   return (
@@ -12,9 +13,8 @@ function App() {
       <Header /> 
       <div className= "body"> 
         <div></div>
-        {/* <Game/> */}
         <Buscaminas/>
-        {/* <RightPanel/> */}
+        <Grafico></Grafico>
       </div>
     </div>
   );
