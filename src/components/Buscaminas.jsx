@@ -6,10 +6,12 @@ import '../styles/buscaminas.css';
 var rows = 8 ; 
 var columns = 8 ; 
 var amountMines = 20;
+var discoverCells = 0; 
 
 let dirrow = [-1,-1,-1,0,1,1,1,0]; 
 let dircol = [-1,0,1,1,1,0,-1,-1];
-let gameover = false ; 
+let gameover = false ;
+let won = false ;  
 
 //Auxiliars functions
 function range(start, stop, step) {
@@ -158,16 +160,24 @@ class Buscaminas extends React.Component{
   handleClick (i){
 
     if (gameover === true ) return; 
+    if (won === true ) return ; 
 
     const squares = this.state.squares.slice();
     if (squares[i].mine ===true ){
       gameover = true; 
       alert("has pisado una mina");
-      for(let i =0 ; i < rows ; i ++){
-        for(let j=0 ; j< columns ; j++){
-          squares[i* columns + j ].isbloked = false;
-        }
-      } 
+      // for(let i =0 ; i < rows ; i ++){
+      //   for(let j=0 ; j< columns ; j++){
+      //     squares[i* columns + j ].isbloked = false;
+      //   }
+      // } 
+      
+      // here do something when the game is lost
+
+      gameover = false ; 
+      this.setState({
+        squares: CreateMines()
+      })
       return; 
     } 
     // squares[i].isbloked = false;
@@ -175,6 +185,7 @@ class Buscaminas extends React.Component{
     var queue = [{row: Math.floor(i/rows) , col: i % columns}];
     var mask = [i]; 
     squares[i].isbloked = false; 
+    discoverCells ++ ;
     while(queue.length !== 0){
       var current = queue.shift(); 
       for(let i=1 ; i<dirrow.length; i+=2){
@@ -185,14 +196,26 @@ class Buscaminas extends React.Component{
         if (checkIsInRangePosition(newdirrow , newdircol , rows , columns)){
           if (squares[newposition].mine === true || mask.indexOf(newposition) !== -1) continue; 
           squares[newposition].isbloked = false; 
+          discoverCells ++ ; 
           queue.push({row:newdirrow , col:newdircol}); 
           mask.push(newposition); 
         }
       }
-    }
+    }    
     this.setState({
       squares: squares,
     })
+
+    if (discoverCells + amountMines >= squares.length){
+      won = true ; 
+      alert ("Felicidades, has ganado el juego ")
+
+      // here do something went the game is win 
+
+      this.setState({
+        squares: CreateMines() 
+      })
+    }
   }
 
   render (){
