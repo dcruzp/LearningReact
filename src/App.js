@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-// import Header  from './components/Header';
+import Header  from './components/Header';
 // import Game from './components/Game';
 // import RightPanel from './components/RightPanel'
 // import Game from './components/Game'; 
@@ -11,8 +11,8 @@ import Sidebar from './components/Sidebar';
 function App() {
   return (
     <div className="App" id= "outer-container">
-      {/* <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} /> */}
       {/* <Header />  */}
+      <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} />
       <div className= "body" id= "page-wrap"> 
         <div></div>
         <Buscaminas/>
